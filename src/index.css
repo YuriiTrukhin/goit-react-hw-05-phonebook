@@ -12,21 +12,23 @@ code {
 .showbutton-enter {
   opacity: 0;
   transform: translateX(-100%);
+  transition: all 250ms linear;
 }
 .showbutton-enter-active {
   transform: translateX(0);
   opacity: 1;
-  transition: all 250ms linear;
 }
+
 .showbutton-exit {
   transform: translateX(0);
   opacity: 1;
-}
-.showbutton-exit-active {
-  transform: translateX(-100%);
-  opacity: 0;
   transition: all 250ms linear;
 }
+.showbutton-exit-active {
+  transform: translateX(-50%);
+  opacity: 0;
+}
+
 .alertBox {
   width: 260px;
   height: 40px;

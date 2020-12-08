@@ -10,22 +10,27 @@ const INITIAL_STATE = {
   isVisible: false,
   message: "",
 };
+const contactsList = [
+  { id: "id-1", name: "Rosie Simpson", number: "459-12-56" },
+  { id: "id-2", name: "Hermione Kline", number: "443-89-12" },
+  { id: "id-3", name: "Eden Clements", number: "645-17-79" },
+  { id: "id-4", name: "Annie Copeland", number: "227-91-26" },
+];
 
 export default class App extends Component {
   state = {
-    contacts: [
-      { id: "id-1", name: "Rosie Simpson", number: "459-12-56" },
-      { id: "id-2", name: "Hermione Kline", number: "443-89-12" },
-      { id: "id-3", name: "Eden Clements", number: "645-17-79" },
-      { id: "id-4", name: "Annie Copeland", number: "227-91-26" },
-    ],
+    contacts: [],
     filter: "",
     ...INITIAL_STATE,
   };
 
   componentDidMount() {
     const persistedTask = localStorage.getItem("contacts");
-    if (persistedTask) {
+    if (persistedTask === null) {
+      this.setState({
+        contacts: contactsList,
+      });
+    } else if (persistedTask) {
       this.setState({
         contacts: JSON.parse(persistedTask),
       });
@@ -78,18 +83,20 @@ export default class App extends Component {
     const { contacts, filter, isVisible, message } = this.state;
     const filterText = this.filterTask();
     return (
-      <div className={styles.container}>
-        <CSSTransition in={true} appear={true} timeout={5000} classNames={styles}>
-          <h1 className={styles.title}>Phonebook</h1>
-        </CSSTransition>
-        <ContactForm addContact={this.toAddContact} />
-        <CSSTransition in={isVisible} timeout={250} unmountOnExit classNames="alert">
-          <Alert message={message} />
-        </CSSTransition>
-        <h2 className={styles.title}>Contacts</h2>
-        {contacts.length > 1 && <Filter value={filter} filterRender={this.filterRender} />}
-        <ContactList list={filterText} toDelete={this.toDelete} />
-      </div>
+      <>
+        <div className={styles.container}>
+          <CSSTransition in={true} appear={true} timeout={5000} classNames={styles}>
+            <h1 className={styles.title}>Phonebook</h1>
+          </CSSTransition>
+          <ContactForm addContact={this.toAddContact} />
+          <CSSTransition in={isVisible} timeout={250} unmountOnExit classNames="alert">
+            <Alert message={message} />
+          </CSSTransition>
+          <h2 className={styles.title}>Contacts</h2>
+          {contacts.length > 1 && <Filter value={filter} filterRender={this.filterRender} />}
+          <ContactList list={filterText} toDelete={this.toDelete} />
+        </div>
+      </>
     );
   }
 }

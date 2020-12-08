@@ -9,7 +9,7 @@ const INITIAL_STATE = {
 };
 export default class ContactForm extends Component {
   state = { ...INITIAL_STATE };
-  
+
   handleChange = ({ target }) => {
     this.setState({
       id: uuid4(),
@@ -28,35 +28,37 @@ export default class ContactForm extends Component {
   render() {
     const { name, number } = this.state;
     return (
-      <div>
-        <form className={styles.form} action="" onSubmit={this.handleSubmit}>
-          <label className={styles.label} htmlFor="name">
-            {" "}
-            Name
-            <input
-              className={styles.input}
-              type="text"
-              name="name"
-              value={name}
-              placeholder="name"
-              onChange={this.handleChange}
-            />
-          </label>
-          <label className={styles.label} htmlFor="number">
-            {" "}
-            Number
-            <input
-              className={styles.input}
-              type="tel"
-              name="number"
-              value={number}
-              placeholder="number"
-              onChange={this.handleChange}
-            />
-          </label>
-          <input className={styles.inputBtn} type="submit" value="Add contuct" />
-        </form>
-      </div>
+      <>
+        <div>
+          <form className={styles.form} action="" onSubmit={this.handleSubmit}>
+            <label className={styles.label} htmlFor="name">
+              {" "}
+              Name
+              <input
+                className={styles.input}
+                type="text"
+                name="name"
+                value={name}
+                placeholder="name"
+                onChange={this.handleChange}
+              />
+            </label>
+            <label className={styles.label} htmlFor="number">
+              {" "}
+              Number
+              <input
+                className={styles.input}
+                type="tel"
+                name="number"
+                value={number}
+                placeholder="number"
+                onChange={this.handleChange}
+              />
+            </label>
+            <input className={styles.inputBtn} type="submit" value="Add contuct" />
+          </form>
+        </div>
+      </>
     );
   }
 }
